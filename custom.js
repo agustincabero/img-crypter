@@ -36,6 +36,7 @@ function getMessageAction() {
   }
   var inicioByte = 0;
   var finByte = 8;
+  var iniciador = 0;
   var limitador = 0;
   var mensaje = '';
   var caracter = '';
@@ -56,6 +57,12 @@ function getMessageAction() {
     
     if(asciiByte == 35){
       limitador++;
+    }
+    if(asciiByte == 64){
+      iniciador++;
+    }
+    if (mensaje.length==2 && iniciador !==2){
+    return "La imagen no tiene ningun mensaje encriptado.";
     }
   }
   return mensaje;
