@@ -11,6 +11,13 @@ function insertMessageAction(message) {
 function getMessageAction() {
   var dimensions = imgCrypter.getDimensions();
   var stringBinario = '';
+  var inicioByte = 0;
+  var finByte = 8;
+  var iniciador = 0;
+  var limitador = 0;
+  var mensaje = '';
+  var caracter = '';
+
   for(var j = 0; j <= dimensions.height; j++) {
     for(var i = 0; i <= dimensions.width; i++) {
       var pixelInfo = imgCrypter.getPixel(i, j);
@@ -34,19 +41,14 @@ function getMessageAction() {
       }
     }
   }
-  var inicioByte = 0;
-  var finByte = 8;
-  var iniciador = 0;
-  var limitador = 0;
-  var mensaje = '';
-  var caracter = '';
-    
+
   while(limitador!=2){
     var subStringBinario = stringBinario.substring(inicioByte, finByte);
     inicioByte = finByte;
     finByte += 8;
     var asciiByte = 0;
     var j = 7;
+    
     for (i=0; i<=7; i++){
       var n = parseInt(subStringBinario[i]);
       asciiByte += n*Math.pow(2, j);
