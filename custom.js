@@ -9,6 +9,54 @@ function insertMessageAction(message) {
 }
 
 function getMessageAction() {
-  // Acá va el código que lee la imagen y retorna el mensaje
-  return "Mensaje de Ejemplo";
+  var dimensions = imgCrypter.getDimensions();
+  var stringBinario = '';
+  for(var j = 0; j <= dimensions.height; j++) {
+    for(var i = 0; i <= dimensions.width; i++) {
+      var pixelInfo = imgCrypter.getPixel(i, j);
+      
+      if (pixelInfo.r%2 == 0){
+        stringBinario += 0;
+      }else{
+        stringBinario += 1;
+      }
+      
+      if (pixelInfo.g%2 == 0){
+        stringBinario += 0;
+      }else{
+        stringBinario += 1;
+      }
+
+      if (pixelInfo.b%2 == 0){
+        stringBinario += 0;
+      }else{
+        stringBinario += 1;
+      }
+    }
+  }
+  var inicioByte = 0;
+  var finByte = 8;
+  var limitador = 0;
+  var mensaje = '';
+  var caracter = '';
+    
+  while(limitador!=2){
+    var subStringBinario = stringBinario.substring(inicioByte, finByte);
+    inicioByte = finByte;
+    finByte += 8;
+    var asciiByte = 0;
+    var j = 7;
+    for (i=0; i<=7; i++){
+      var n = parseInt(subStringBinario[i]);
+      asciiByte += n*Math.pow(2, j);
+      j--      
+    }
+    caracter = String.fromCharCode(asciiByte);
+    mensaje += caracter;
+    
+    if(asciiByte == 35){
+      limitador++;
+    }
+  }
+  return mensaje;
 }
